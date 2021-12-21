@@ -1,5 +1,4 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
@@ -13,8 +12,8 @@ class AdvertisementViewSet(ModelViewSet):
     """ViewSet для объявлений."""
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
-    permission_classes = [IsAuthenticated,]
-    filter_backends = [DjangoFilterBackend,]
+    permission_classes = [IsOwnerOrAdminOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
     filterset_class = AdvertisementFilter
 
     # TODO: настройте ViewSet, укажите атрибуты для кверисета,
